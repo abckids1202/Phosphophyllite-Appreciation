@@ -1,6 +1,6 @@
 # PHOS — Beautifully Fragile
 
-A responsive Phosphophyllite fan tribute with an animated three-frame picture edit, accessible gallery viewer, spoiler-controlled character analysis, and three original in-character prose pieces.
+A responsive Phosphophyllite fan tribute with an animated picture edit, a nine-image archive, filterable character analysis, reader annotations, and three original in-character prose pieces.
 
 ## Run
 
@@ -10,11 +10,11 @@ Requires Node.js 18 or newer. No package installation is needed.
 npm run dev
 ```
 
-Open http://127.0.0.1:5188. `npm run build` creates a static `dist/` folder suitable for static hosting. The GitHub Pages workflow deploys that folder when Pages is configured to use GitHub Actions.
+Open http://127.0.0.1:5176. Set `$env:PORT=5188` before `npm run dev` if you want another port. `npm run build` creates a static `dist/` folder suitable for static hosting. The GitHub Pages workflow deploys that folder when Pages is configured to use GitHub Actions.
 
 ## Controls
 
-Play the edit opens an automatically advancing picture sequence. Pause, previous/next, arrow keys, and Escape work in the viewer. Motion can be disabled, and the OS reduced-motion preference is respected. Writing tabs support arrow keys, Home, and End. Major manga spoilers are hidden until enabled.
+Play the edit opens an automatically advancing picture sequence. Pause, previous/next, arrow keys, and Escape work in the viewer. Motion can be disabled, and the OS reduced-motion preference is respected. Writing tabs support arrow keys, Home, and End. Major manga spoilers are hidden until enabled. Reader analyses are saved to local browser storage; a shared multi-user archive would need a database and authentication layer.
 
 ## Credits
 
