@@ -84,6 +84,20 @@ function decorateEntrySpoilers(){
   });
 }
 decorateEntrySpoilers();
+function renderSyncNotices(){
+  const config=window.PHOS_SUPABASE_CONFIG||{};
+  let message='Local archive mode — readings stay in this browser until hosted sync is configured.';
+  let tone='local';
+  if(config.url&&config.anonKey&&config.accessToken&&config.userId){message='Shared queue connected — new readings are sent for moderation.';tone='connected';}
+  else if(config.url&&config.anonKey){message='Hosted archive configured — sign in is required before readings can be shared.';tone='pending';}
+  $$('form').filter(form=>form.querySelector('[name="title"]')&&form.querySelector('[name="body"]')).forEach(form=>{
+    let notice=form.parentElement?.querySelector(':scope > .sync-status');
+    if(!notice){notice=document.createElement('p');notice.className='sync-status';notice.setAttribute('role','status');form.parentElement?.insertBefore(notice,form);}
+    notice.dataset.tone=tone;notice.textContent=message;
+  });
+}
+renderSyncNotices();
+window.addEventListener('phos:remote-status',renderSyncNotices);
 if(document.body.classList.contains('panels-page')&&!$('#include-panel-spoilers')){
   $('.panel-library-top')?.insertAdjacentHTML('beforeend','<label class="spoiler-toggle panel-spoiler-control"><input id="include-panel-spoilers" type="checkbox"><span>Include manga spoilers</span></label>');
   $('#include-panel-spoilers')?.addEventListener('change',event=>{$$('.manga-panel').forEach(card=>card.classList.toggle('spoiler-hidden',card.dataset.spoiler!=='none'&&!event.currentTarget.checked));});
