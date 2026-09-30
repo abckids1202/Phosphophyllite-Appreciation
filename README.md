@@ -22,3 +22,9 @@ Unofficial fan project for Haruko Ichikawa’s *Land of the Lustrous*. The two s
 
 Basic character facts were checked against https://www.land-of-the-lustrous.com/chara/phosphophyllite.html . Analysis is interpretive commentary. All in-character prose is original fan writing, not quoted canon. Fonts load from Google Fonts with local system fallbacks. No analytics or tracking are included.
 
+## Shared annotations (optional Supabase setup)
+
+The current static site stores readings in the visitor’s browser so the archive works without credentials. The hosted community contract is defined in [`supabase/schema.sql`](supabase/schema.sql). Run that file in a Supabase project’s SQL editor, then add an authenticated client adapter that maps the local fields to `annotations` and `annotation_reactions`:
+
+`source_type` is `study`, `panel`, or `edit`; `source_id` identifies the entry or scene; `status` starts as `pending` and becomes `approved` after moderation. Public reads should query approved rows, while authenticated visitors can create and manage their own pending rows. The schema includes row-level security, lens and source indexes, spoiler levels, and one reaction per visitor per annotation.
+
