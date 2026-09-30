@@ -3,7 +3,7 @@
 
 const cleanUrl = value => String(value || '').replace(/\/$/, '');
 
-export function createPhosSupabaseAdapter({ url, anonKey, accessToken } = {}) {
+export function createPhosSupabaseAdapter({ url, anonKey, accessToken, userId } = {}) {
   const base = cleanUrl(url);
   if (!base || !anonKey) throw new Error('Supabase URL and anon key are required.');
   const headers = { apikey: anonKey, Authorization: `Bearer ${accessToken || anonKey}`, 'Content-Type': 'application/json' };
@@ -21,10 +21,10 @@ export function createPhosSupabaseAdapter({ url, anonKey, accessToken } = {}) {
       return request(`annotations?${params}`);
     },
     submitAnnotation(annotation) {
-      return request('annotations', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ ...annotation, status: 'pending' }) });
+      return request('annotations', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ ...annotation, user_id: annotation.user_id || userId, status: 'pending' }) });
     },
     setReaction(annotationId, kind) {
-      return request('annotation_reactions', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=representation' }, body: JSON.stringify({ annotation_id: annotationId, kind }) });
+      return request('annotation_reactions', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=representation' }, body: JSON.stringify({ annotation_id: annotationId, user_id: userId, kind }) });
     },
     removeReaction(annotationId) {
       return request(`annotation_reactions?annotation_id=eq.${encodeURIComponent(annotationId)}`, { method: 'DELETE' });
