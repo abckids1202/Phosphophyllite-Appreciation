@@ -33,3 +33,4 @@
 .field-counter{display:block;color:var(--muted);font-size:11px;letter-spacing:.04em;text-align:right;margin-top:6px}
 .entry-spoiler{display:block;width:max-content;margin-bottom:10px;color:var(--muted);font-size:9px;letter-spacing:1.4px;text-transform:uppercase}.manga-panel .entry-spoiler{position:absolute;top:18px;right:18px;z-index:2;margin:0;padding:6px 8px;background:#07110ebd;border:1px solid #b3ffdc55;color:var(--mint)}
 .sync-status{grid-column:1/-1;margin:18px 0 0;color:var(--muted);font-size:12px;line-height:1.6}.sync-status[data-tone=connected]{color:var(--mint)}.sync-status[data-tone=pending]{color:#f6d38a}
+.playlist-banner{margin:18px 0 0;color:var(--mint);font-size:11px;letter-spacing:1.4px}.timeline-step.playlist-selected{color:var(--mint);border-color:#b3ffdc99;box-shadow:0 0 0 1px #b3ffdc33 inset}
