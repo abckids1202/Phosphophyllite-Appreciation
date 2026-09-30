@@ -91,6 +91,7 @@ function decorateEntrySpoilers(){
   $$('.manga-panel').forEach(card=>{
     if(!card.dataset.spoiler)card.dataset.spoiler='none';
     if(!card.querySelector('.entry-spoiler'))card.insertAdjacentHTML('beforeend',`<small class="entry-spoiler">${spoilerCopy[card.dataset.spoiler]||spoilerCopy.none}</small>`);
+    if(!card.querySelector('.entry-credit'))card.insertAdjacentHTML('beforeend','<small class="entry-credit">FAN ART / VISUAL STUDY</small>');
   });
 }
 decorateEntrySpoilers();
