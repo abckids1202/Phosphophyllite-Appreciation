@@ -3,4 +3,7 @@
 window.PHOS_SUPABASE_CONFIG = {
   url: 'https://YOUR_PROJECT.supabase.co',
   anonKey: 'YOUR_PUBLIC_ANON_KEY',
+  // Supply these after authentication to enable pending submissions and reactions.
+  accessToken: 'SIGNED_IN_ACCESS_TOKEN',
+  userId: 'SIGNED_IN_USER_UUID',
 };
