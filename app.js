@@ -7,6 +7,7 @@ let motion=!matchMedia('(prefers-reduced-motion: reduce)').matches;
 const motionButton=$('#motion');
 function setMotion(){document.documentElement.classList.toggle('no-motion',!motion);if(motionButton){motionButton.setAttribute('aria-pressed',String(motion));motionButton.innerHTML=`Motion ${motion?'on':'off'} <span>${motion?'◉':'○'}</span>`;}}
 setMotion();motionButton?.addEventListener('click',()=>{motion=!motion;setMotion();});
+$('#play')?.addEventListener('click',()=>{window.location.href='edit.html';});
 
 const prose=[
 `I was going to do something extraordinary today.\nI hadn’t decided what, exactly. That was the small, unimportant part.\n\nThen the light caught the grass, and for a moment everything looked like it was made of me. Or maybe I was made of it.\n\nDon’t tell anyone I spent the morning looking. I’m calling it research.`,
