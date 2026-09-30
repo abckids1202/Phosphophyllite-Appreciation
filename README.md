@@ -14,7 +14,7 @@ Open http://127.0.0.1:5176. Set `$env:PORT=5188` before `npm run dev` if you wan
 
 ## Controls
 
-Play the edit opens an automatically advancing picture sequence. Pause, previous/next, arrow keys, and Escape work in the viewer. Motion can be disabled, and the OS reduced-motion preference is respected. Writing tabs support arrow keys, Home, and End. Major manga spoilers are hidden until enabled. Reader analyses are saved to local browser storage; a shared multi-user archive would need a database and authentication layer.
+Play the edit opens the captioned video edit. The play/pause controls, scene timeline, impact control, and loading state work with the supplied video assets. The panel reader supports arrow keys, Home, End, and Escape. Motion can be disabled, and the OS reduced-motion preference is respected. Major manga spoilers are hidden until enabled. Reader analyses are saved locally first; when signed Supabase credentials are configured, submissions and reactions are also sent to the hosted moderation queue.
 
 ## Credits
 
@@ -28,5 +28,5 @@ The current static site stores readings in the visitor’s browser so the archiv
 
 `source_type` is `study`, `panel`, or `edit`; `source_id` identifies the entry or scene; `status` starts as `pending` and becomes `approved` after moderation. Public reads should query approved rows, while authenticated visitors can create and manage their own pending rows. The schema includes row-level security, lens and source indexes, spoiler levels, and one reaction per visitor per annotation.
 
-The REST helper in [`supabase/adapter.js`](supabase/adapter.js) implements the corresponding read, submit, react, and remove-reaction calls. Copy [`supabase/config.example.js`](supabase/config.example.js) to `supabase/config.js`, load it before `app.js`, and pass `window.PHOS_SUPABASE_CONFIG` plus the signed-in user ID and access token to `createPhosSupabaseAdapter` once authentication is available. The example config contains only public client values; service-role keys must stay server-side.
+The REST helper in [`supabase/adapter.js`](supabase/adapter.js) implements the corresponding read, submit, react, and remove-reaction calls. Copy [`supabase/config.example.js`](supabase/config.example.js) to `supabase/config.js`, load it before `app.js`, and set `window.PHOS_SUPABASE_CONFIG` with the project URL, anon key, signed-in user ID, and access token. The client automatically queues new readings as pending rows and syncs reactions when those credentials are present. The example config contains only public client values; service-role keys must stay server-side.
 
