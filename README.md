@@ -14,7 +14,7 @@ Open http://127.0.0.1:5176. Set `$env:PORT=5188` before `npm run dev` if you wan
 
 ## Controls
 
-Play the edit opens the captioned video edit. The play/pause controls, scene timeline, impact control, and loading state work with the supplied video assets. The panel reader supports arrow keys, Home, End, and Escape. Motion can be disabled, and the OS reduced-motion preference is respected. Major manga spoilers are hidden until enabled. Reader analyses are saved locally first; when signed Supabase credentials are configured, submissions and reactions are also sent to the hosted moderation queue.
+Play the edit opens the captioned video edit. The play/pause controls, scene timeline, impact control, and loading state work with the supplied video assets. The panel reader supports arrow keys, Home, End, and Escape. Motion can be disabled, and the OS reduced-motion preference is respected. Major manga spoilers are hidden until enabled. Study, panel, and edit responses can be searched and filtered by their source and lens, with scene-specific writing prompts and shareable hashes. Reader analyses are saved locally first; when signed Supabase credentials are configured, submissions and reactions are also sent to the hosted moderation queue.
 
 ## Credits
 
