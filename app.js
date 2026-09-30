@@ -71,6 +71,23 @@ function enhanceAnnotationForms(){
     [['author',80],['title',140],['body',2000]].forEach(([name,limit])=>{const field=form.querySelector(`[name="${name}"]`);if(!field||field.dataset.counterReady)return;field.maxLength=limit;const counter=document.createElement('small');counter.className='field-counter';counter.id=`${form.id||'annotation'}-${name}-counter`;counter.setAttribute('aria-live','polite');field.setAttribute('aria-describedby',counter.id);const update=()=>{counter.textContent=`${field.value.length}/${limit}`;};field.dataset.counterReady='true';field.insertAdjacentElement('afterend',counter);field.addEventListener('input',update);update();});});
 }
 enhanceAnnotationForms();
+const spoilerCopy={none:'No spoilers',mild:'Mild spoilers',major:'Major spoilers'};
+function decorateEntrySpoilers(){
+  $$('.library-card').forEach(card=>{
+    const level=card.dataset.spoiler||(/salvation|erasure/i.test(card.textContent)?'major':'none');
+    card.dataset.spoiler=level;
+    if(!card.querySelector('.entry-spoiler'))card.insertAdjacentHTML('afterbegin',`<small class="entry-spoiler">${spoilerCopy[level]||spoilerCopy.none}</small>`);
+  });
+  $$('.manga-panel').forEach(card=>{
+    if(!card.dataset.spoiler)card.dataset.spoiler='none';
+    if(!card.querySelector('.entry-spoiler'))card.insertAdjacentHTML('beforeend',`<small class="entry-spoiler">${spoilerCopy[card.dataset.spoiler]||spoilerCopy.none}</small>`);
+  });
+}
+decorateEntrySpoilers();
+if(document.body.classList.contains('panels-page')&&!$('#include-panel-spoilers')){
+  $('.panel-library-top')?.insertAdjacentHTML('beforeend','<label class="spoiler-toggle panel-spoiler-control"><input id="include-panel-spoilers" type="checkbox"><span>Include manga spoilers</span></label>');
+  $('#include-panel-spoilers')?.addEventListener('change',event=>{$$('.manga-panel').forEach(card=>card.classList.toggle('spoiler-hidden',card.dataset.spoiler!=='none'&&!event.currentTarget.checked));});
+}
 document.addEventListener('click',event=>{const button=event.target.closest('[data-clear-filters]');if(!button)return;const scope=button.closest('.community,.panel-community');if(!scope)return;$$('input[type="search"]',scope).forEach(input=>{input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));});$$('select',scope).forEach(select=>{select.selectedIndex=0;select.dispatchEvent(new Event('change',{bubbles:true}));});button.focus();});
 const savedAlias=localStorage.getItem('phos-alias')||'';$$('input[name="author"]').forEach(input=>{if(savedAlias&&!input.value)input.value=savedAlias;input.addEventListener('change',()=>{if(input.value.trim())localStorage.setItem('phos-alias',input.value.trim());});});
 document.addEventListener('submit',event=>{const alias=event.currentTarget?.querySelector?.('input[name="author"]')?.value?.trim();if(alias)localStorage.setItem('phos-alias',alias);},true);
