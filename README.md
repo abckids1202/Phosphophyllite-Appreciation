@@ -10,7 +10,17 @@ Requires Node.js 18 or newer. No package installation is needed.
 npm run dev
 ```
 
-Open http://127.0.0.1:5176. Set `$env:PORT=5188` before `npm run dev` if you want another port. `npm run build` creates a static `dist/` folder suitable for static hosting. The GitHub Pages workflow deploys that folder when Pages is configured to use GitHub Actions.
+Open http://127.0.0.1:5176. If that port is already in use, use the syntax for your shell:
+
+```powershell
+$env:PORT=5177; npm.cmd run dev
+```
+
+```bat
+set PORT=5177 && npm run dev
+```
+
+`npm run build` creates a static `dist/` folder suitable for static hosting. The GitHub Pages workflow deploys that folder when Pages is configured to use GitHub Actions.
 
 ## Controls
 
