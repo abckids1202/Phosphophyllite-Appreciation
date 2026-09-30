@@ -93,6 +93,48 @@ function decorateEntrySpoilers(){
   });
 }
 decorateEntrySpoilers();
+function attachReadingPrompts(){
+  const prompts={
+    study:{
+      'need-to-matter':'What does being useful promise Phos—and what does it cost?',
+      'kindness-without-a-plan':'Can attention become a form of belonging?',
+      'body-that-remembers':'Is this transformation growth, erosion, or both?',
+      'impermanence-as-a-teacher':'What remains when the self keeps changing?',
+      'myth-of-the-repaired-hero':'What does survival make harder to return to?',
+      'learning-the-shape-of-a-world':'How does naming the world change Phos’s place in it?',
+      'salvation-becomes-erasure':'When does saving others become another kind of distance?'
+    },
+    panel:{
+      '0':'What changes in this frame before anything happens?',
+      '1':'Where does joy become a memory?',
+      '2':'Who is looking when a face becomes a symbol?',
+      '3':'What does the body remember that language cannot?',
+      '4':'What does the moon make desirable—and unreachable?',
+      '5':'Which parts of the self are held by others?'
+    },
+    edit:{
+      '0':'Is this first movement wonder, loneliness, or both?',
+      '1':'What does usefulness sound like before it becomes pressure?',
+      '2':'Which question opens when Phos meets the unknown?',
+      '3':'When does a face become a role for other people?',
+      '4':'What changes first: the body or the story?',
+      '5':'What kind of desire grows from distance?',
+      '6':'Can memory keep an edge when identity keeps moving?',
+      '7':'What remains after language stops working?',
+      '8':'How is a self assembled through other hands?'
+    }
+  };
+  $$('form').filter(form=>form.querySelector('select[name="sourceId"]')&&form.querySelector('[name="body"]')).forEach(form=>{
+    if(form.querySelector('.form-prompt'))return;
+    const kind=form.id==='analysis-form'?'study':form.id==='panel-analysis-form'?'panel':form.id==='edit-analysis-form'?'edit':null;
+    if(!kind)return;
+    const source=form.querySelector('select[name="sourceId"]');
+    const note=document.createElement('p');note.className='form-prompt';note.setAttribute('role','note');
+    const update=()=>{note.textContent=prompts[kind]?.[source.value]||'What does this moment make visible?';};
+    source.addEventListener('change',update);form.prepend(note);update();
+  });
+}
+attachReadingPrompts();
 function renderSyncNotices(){
   const config=window.PHOS_SUPABASE_CONFIG||{};
   let message='Local archive mode — readings stay in this browser until hosted sync is configured.';
