@@ -78,7 +78,14 @@ create policy "authors can remove pending annotations"
 
 create policy "approved reactions are public"
   on public.annotation_reactions for select
-  using (true);
+  using (
+    user_id = auth.uid()
+    or exists (
+      select 1 from public.annotations
+      where annotations.id = annotation_id
+        and annotations.status = 'approved'
+    )
+  );
 
 create policy "signed-in visitors can react once"
   on public.annotation_reactions for insert to authenticated
