@@ -82,12 +82,26 @@ create policy "approved reactions are public"
 
 create policy "signed-in visitors can react once"
   on public.annotation_reactions for insert to authenticated
-  with check (user_id = auth.uid());
+  with check (
+    user_id = auth.uid()
+    and exists (
+      select 1 from public.annotations
+      where annotations.id = annotation_id
+        and annotations.status = 'approved'
+    )
+  );
 
 create policy "visitors can change their reaction"
   on public.annotation_reactions for update to authenticated
   using (user_id = auth.uid())
-  with check (user_id = auth.uid());
+  with check (
+    user_id = auth.uid()
+    and exists (
+      select 1 from public.annotations
+      where annotations.id = annotation_id
+        and annotations.status = 'approved'
+    )
+  );
 
 create policy "visitors can remove their reaction"
   on public.annotation_reactions for delete to authenticated
