@@ -27,7 +27,7 @@ export function createPhosSupabaseAdapter({ url, anonKey, accessToken, userId } 
       return request('annotation_reactions', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=representation' }, body: JSON.stringify({ annotation_id: annotationId, user_id: userId, kind }) });
     },
     removeReaction(annotationId) {
-      return request(`annotation_reactions?annotation_id=eq.${encodeURIComponent(annotationId)}`, { method: 'DELETE' });
+      return request(`annotation_reactions?annotation_id=eq.${encodeURIComponent(annotationId)}&user_id=eq.${encodeURIComponent(userId || '')}`, { method: 'DELETE' });
     },
   };
 }
