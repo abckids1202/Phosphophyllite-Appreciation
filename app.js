@@ -2,7 +2,7 @@ const $=(s,root=document)=>root.querySelector(s);
 const $$=(s,root=document)=>[...root.querySelectorAll(s)];
 
 const nav=$('nav');
-if(nav) nav.innerHTML='<a href="edit.html">The edit</a><a href="study.html">Character study</a><a href="inner-world.html">Inner world</a><a href="panels.html">Manga panels</a><a href="saved.html">My shelf</a>';
+if(nav) nav.innerHTML='<a href="edit.html">The edit</a><a href="study.html">Character study</a><a href="inner-world.html">Inner world</a><a href="panels.html">Manga panels</a><a href="paths.html">Reading paths</a><a href="saved.html">My shelf</a>';
 if(nav){const current=location.pathname.split('/').pop()||'index.html';$$('a',nav).forEach(link=>{if(link.getAttribute('href')===current)link.setAttribute('aria-current','page');});const menuButton=document.createElement('button');menuButton.className='menu-toggle';menuButton.type='button';menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-controls','site-nav');menuButton.textContent='Menu';nav.id='site-nav';nav.parentElement?.insertBefore(menuButton,nav);menuButton.addEventListener('click',()=>{const open=document.body.classList.toggle('nav-open');menuButton.setAttribute('aria-expanded',String(open));});$$('a',nav).forEach(link=>link.addEventListener('click',()=>{document.body.classList.remove('nav-open');menuButton.setAttribute('aria-expanded','false');}));}
 let motion=!matchMedia('(prefers-reduced-motion: reduce)').matches;
 const motionButton=$('#motion');
